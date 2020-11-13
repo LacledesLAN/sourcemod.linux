@@ -250,4 +250,24 @@
 		"ko"		"끄기"
 	}
 
+	"Say all"
+	{
+		"ko"		"(전체 채팅) { 1 }"
+	}
+
+	"Chat admins"
+	{
+		"ko"		"(어드민) {1}"
+	}
+
+	"Chat to admins"
+	{
+		"ko"		"(어드민에게) {1}"
+	}
+
+	"Private say to"
+	{
+		"ko"		"(귓속말 {1}) {2}"
+	}
+
 }
