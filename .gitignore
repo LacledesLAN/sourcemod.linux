@@ -1,0 +1,45 @@
+### SOURCEMOD SPECIFIC ###
+addons/sourcemod/plugins/admin-sql-prefetch.smx
+addons/sourcemod/plugins/admin-sql-threaded.smx
+addons/sourcemod/plugins/funcommands.smx
+addons/sourcemod/plugins/funvotes.smx
+addons/sourcemod/plugins/mapchooser.smx
+addons/sourcemod/plugins/nextmap.smx
+addons/sourcemod/plugins/nominations.smx
+addons/sourcemod/plugins/randomcycle.smx
+addons/sourcemod/plugins/reservedslots.smx
+addons/sourcemod/plugins/rockthevote.smx
+addons/sourcemod/plugins/sounds.smx
+addons/sourcemod/plugins/sql-admin-manager.smx
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
+### Linux Cruft ###
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+### macOS Cruft ###
+.AppleDouble
+.com.apple.timemachine.donotpresent
+.DocumentRevisions-V100
+.DS_Store
+.fseventsd
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+### Windows Cruft ###
+*.lnk
+[Dd]esktop.ini
+ehthumbs.db
+Thumbs.db
