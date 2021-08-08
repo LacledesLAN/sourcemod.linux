@@ -11,6 +11,7 @@ addons/sourcemod/plugins/reservedslots.smx
 addons/sourcemod/plugins/rockthevote.smx
 addons/sourcemod/plugins/sounds.smx
 addons/sourcemod/plugins/sql-admin-manager.smx
+addons/sourcemod/configs/admins_simple.ini
 
 ### VisualStudioCode ###
 .vscode/*
