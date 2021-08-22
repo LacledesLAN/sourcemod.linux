@@ -16,3 +16,6 @@ https://code.google.com/archive/p/sourcemod-curl-extension/downloads
 STEAM TOOLS
 A library that provides more functionality to plugins. 
 https://forums.alliedmods.net/showthread.php?t=236206
+
+Also a little note about Sourcemod
+A while back Valve patched a vulnerability on the client of multiple Source engine games that disabled the menu feautres. So in order to run commands like !sm_admin, you ave to run cl_showpluginmessages 1 in the client.
