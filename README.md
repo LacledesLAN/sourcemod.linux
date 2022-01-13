@@ -19,3 +19,6 @@ https://forums.alliedmods.net/showthread.php?t=236206
 
 ### Also a little note about Sourcemod:
 A while back Valve patched a vulnerability on the client of multiple Source engine games that disabled the menu feautres. So in order to run commands like !sm_admin, you ave to run cl_showpluginmessages 1 in the client.
+
+### Versions: 
+The current versions of Metamod is dev buid 1.12.0 #1157-linux and Sourcemod to Dev build 1.11.0 #6843-linux. Latest as of 1/21
