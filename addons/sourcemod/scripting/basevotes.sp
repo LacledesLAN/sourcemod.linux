@@ -51,21 +51,24 @@ public Plugin myinfo =
 #define VOTE_NO "###no###"
 #define VOTE_YES "###yes###"
 
+#define GENERIC_COUNT 5
+#define ANSWER_SIZE 64
+
 Menu g_hVoteMenu = null;
 
 ConVar g_Cvar_Limits[3] = {null, ...};
 ConVar g_Cvar_Voteban = null;
 //ConVar g_Cvar_VoteSay = null;
 
-enum voteType
+enum VoteType
 {
-	map,
-	kick,
-	ban,
-	question
+	VoteType_Map,
+	VoteType_Kick,
+	VoteType_Ban,
+	VoteType_Question
 }
 
-voteType g_voteType = question;
+VoteType g_voteType = VoteType_Question;
 
 // Menu API does not provide us with a way to pass multiple peices of data with a single
 // choice, so some globals are used to hold stuff.
@@ -182,12 +185,14 @@ public Action Command_Vote(int client, int args)
 	char text[256];
 	GetCmdArgString(text, sizeof(text));
 
-	char answers[5][64];
+	char answers[GENERIC_COUNT][ANSWER_SIZE];
 	int answerCount;	
 	int len = BreakString(text, g_voteArg, sizeof(g_voteArg));
 	int pos = len;
 	
-	while (args > 1 && pos != -1 && answerCount < 5)
+	char answers_list[GENERIC_COUNT * (ANSWER_SIZE + 3)];
+	
+	while (args > 1 && pos != -1 && answerCount < GENERIC_COUNT)
 	{	
 		pos = BreakString(text[len], answers[answerCount], sizeof(answers[]));
 		answerCount++;
@@ -197,11 +202,7 @@ public Action Command_Vote(int client, int args)
 			len += pos;
 		}	
 	}
-
-	LogAction(client, -1, "\"%L\" initiated a generic vote.", client);
-	ShowActivity2(client, "[SM] ", "%t", "Initiate Vote", g_voteArg);
-	
-	g_voteType = question;
+	g_voteType = VoteType_Question;
 	
 	g_hVoteMenu = new Menu(Handler_VoteCallback, MENU_ACTIONS_ALL);
 	g_hVoteMenu.SetTitle("%s?", g_voteArg);
@@ -210,14 +211,19 @@ public Action Command_Vote(int client, int args)
 	{
 		g_hVoteMenu.AddItem(VOTE_YES, "Yes");
 		g_hVoteMenu.AddItem(VOTE_NO, "No");
+		Format(answers_list, sizeof(answers_list), " \"Yes\" \"No\"");
 	}
 	else
 	{
 		for (int i = 0; i < answerCount; i++)
 		{
 			g_hVoteMenu.AddItem(answers[i], answers[i]);
+			Format(answers_list, sizeof(answers_list), "%s \"%s\"", answers_list, answers[i]);
 		}	
 	}
+	
+	LogAction(client, -1, "\"%L\" initiated a generic vote (question \"%s\" / answers%s).", client, g_voteArg, answers_list);
+	ShowActivity2(client, "[SM] ", "%t", "Initiate Vote", g_voteArg);
 	
 	g_hVoteMenu.ExitButton = false;
 	g_hVoteMenu.DisplayVoteToAll(20);		
@@ -233,7 +239,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 	}
 	else if (action == MenuAction_Display)
 	{
-	 	if (g_voteType != question)
+	 	if (g_voteType != VoteType_Question)
 	 	{
 			char title[64];
 			menu.GetTitle(title, sizeof(title));
@@ -282,7 +288,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 		
 		percent = GetVotePercent(votes, totalVotes);
 		
-		if (g_voteType != question)
+		if (g_voteType != VoteType_Question)
 		{
 			limit = g_Cvar_Limits[g_voteType].FloatValue;
 		}
@@ -301,7 +307,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 			
 			switch (g_voteType)
 			{
-				case (question):
+				case VoteType_Question:
 				{
 					if (strcmp(item, VOTE_NO) == 0 || strcmp(item, VOTE_YES) == 0)
 					{
@@ -311,7 +317,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 					PrintToChatAll("[SM] %t", "Vote End", g_voteArg, item);
 				}
 				
-				case (map):
+				case VoteType_Map:
 				{
 					// single-vote items don't use the display item
 					char displayName[PLATFORM_MAX_PATH];
@@ -323,7 +329,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 					dp.WriteString(item);		
 				}
 					
-				case (kick):
+				case VoteType_Kick:
 				{
 					int voteTarget;
 					if((voteTarget = GetClientOfUserId(g_voteTarget)) == 0)
@@ -344,7 +350,7 @@ public int Handler_VoteCallback(Menu menu, MenuAction action, int param1, int pa
 					}
 				}
 					
-				case (ban):
+				case VoteType_Ban:
 				{
 					if (g_voteArg[0] == '\0')
 					{
