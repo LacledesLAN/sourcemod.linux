@@ -254,11 +254,11 @@ native float ArcSine(float angle);
 /**
  * Returns the arctangent2 of the input values.
  *
- * @param x             Horizontal value.
  * @param y             Vertical value.
+ * @param x             Horizontal value.
  * @return              atan2(value) in radians.
  */
-native float ArcTangent2(float x, float y);
+native float ArcTangent2(float y, float x);
 
 /**
  * Rounds a floating point number using the "round to nearest" algorithm.
@@ -275,14 +275,13 @@ stock int RoundFloat(float value)
  * User defined operators.
  */
 #if !defined __sourcepawn2__
-#pragma rational Float
 
 // Internal aliases for backwards compatibility.
-native float __FLOAT_MUL__(float a, float b) = FloatMul;
-native float __FLOAT_DIV__(float a, float b) = FloatDiv;
-native float __FLOAT_ADD__(float a, float b) = FloatAdd;
-native float __FLOAT_SUB__(float a, float b) = FloatSub;
-native float __FLOAT_MOD__(float a, float b) = FloatMod;
+native float __FLOAT_MUL__(float a, float b);
+native float __FLOAT_DIV__(float a, float b);
+native float __FLOAT_ADD__(float a, float b);
+native float __FLOAT_SUB__(float a, float b);
+native float __FLOAT_MOD__(float a, float b);
 
 native bool __FLOAT_GT__(float a, float b);
 native bool __FLOAT_GE__(float a, float b);
@@ -292,18 +291,18 @@ native bool __FLOAT_EQ__(float a, float b);
 native bool __FLOAT_NE__(float a, float b);
 native bool __FLOAT_NOT__(float a);
 
-native float operator*(float oper1, float oper2) = FloatMul;
-native float operator/(float oper1, float oper2) = FloatDiv;
-native float operator+(float oper1, float oper2) = FloatAdd;
-native float operator-(float oper1, float oper2) = FloatSub;
-native float operator%(float oper1, float oper2) = FloatMod;
-native bool operator!(float oper1) = __FLOAT_NOT__;
-native bool operator>(float oper1, float oper2) = __FLOAT_GT__;
-native bool operator>=(float oper1, float oper2) = __FLOAT_GE__;
-native bool operator<(float oper1, float oper2) = __FLOAT_LT__;
-native bool operator<=(float oper1, float oper2) = __FLOAT_LE__;
-native bool operator!=(float oper1, float oper2) = __FLOAT_NE__;
-native bool operator==(float oper1, float oper2) = __FLOAT_EQ__;
+stock float operator*(float oper1, float oper2) { return __FLOAT_MUL__(oper1, oper2); }
+stock float operator/(float oper1, float oper2) { return __FLOAT_DIV__(oper1, oper2); }
+stock float operator+(float oper1, float oper2) { return __FLOAT_ADD__(oper1, oper2); }
+stock float operator-(float oper1, float oper2) { return __FLOAT_SUB__(oper1, oper2); }
+stock float operator%(float oper1, float oper2) { return __FLOAT_MOD__(oper1, oper2); }
+stock bool operator!(float oper1) { return __FLOAT_NOT__(oper1); }
+stock bool operator>(float oper1, float oper2) { return __FLOAT_GT__(oper1, oper2); }
+stock bool operator>=(float oper1, float oper2) { return __FLOAT_GE__(oper1, oper2); }
+stock bool operator<(float oper1, float oper2) { return __FLOAT_LT__(oper1, oper2); }
+stock bool operator<=(float oper1, float oper2) { return __FLOAT_LE__(oper1, oper2); }
+stock bool operator!=(float oper1, float oper2) { return __FLOAT_NE__(oper1, oper2); }
+stock bool operator==(float oper1, float oper2) { return __FLOAT_EQ__(oper1, oper2); }
 
 stock float operator++(float oper)
 {
