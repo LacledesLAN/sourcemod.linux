@@ -254,11 +254,11 @@ native float ArcSine(float angle);
 /**
  * Returns the arctangent2 of the input values.
  *
- * @param y             Vertical value.
  * @param x             Horizontal value.
+ * @param y             Vertical value.
  * @return              atan2(value) in radians.
  */
-native float ArcTangent2(float y, float x);
+native float ArcTangent2(float x, float y);
 
 /**
  * Rounds a floating point number using the "round to nearest" algorithm.

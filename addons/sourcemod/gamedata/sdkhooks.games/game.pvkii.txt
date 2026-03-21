@@ -5,11 +5,6 @@
 	{
 		"Offsets"
 		{
-			"EntityListeners"
-			{
-				"windows"	"262180"
-				"linux"		"262180"
-			}
 			"Blocked"
 			{
 				"windows"	"104"
