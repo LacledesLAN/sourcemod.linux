@@ -26,4 +26,4 @@ A while back Valve patched a vulnerability on the client of multiple Source engi
 
 ### Versions
 
-The current versions of Metamod is 2.0.0 #1359-linux and sourcmoed is STABLE 1.12.0 build 7223 3/7/2026
+The current versions of Metamod is 2.0.0 #1390-linux and sourcmoed is STABLE 1.12.0 build 7223 3/7/2026
